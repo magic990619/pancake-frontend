@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Heading, Text } from '@pancakeswap-libs/uikit'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import Container from 'components/layout/Container'
 import LotteryProgress from './LotteryProgress'
 
@@ -64,15 +64,15 @@ const RightWrapper = styled.div`
 `
 
 const Hero = () => {
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
 
   return (
     <StyledHero>
       <StyledContainer>
         <LeftWrapper>
-          <Title>{TranslateString(708, 'The CAKE Lottery')}</Title>
-          <Blurb>{TranslateString(710, 'Buy tickets with CAKE')}</Blurb>
-          <Blurb>{TranslateString(712, 'Win if 2, 3, or 4 of your ticket numbers match!')}</Blurb>
+          <Title>{t('The CAKE Lottery')}</Title>
+          <Blurb>{t('Buy tickets with CAKE')}</Blurb>
+          <Blurb>{t('Win if 2, 3, or 4 of your ticket numbers match!')}</Blurb>
         </LeftWrapper>
         <RightWrapper>
           <LotteryProgress />

@@ -14,7 +14,7 @@ import {
   OpenNewIcon,
 } from '@pancakeswap-libs/uikit'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import useTokenBalance from 'hooks/useTokenBalance'
 import Container from 'components/layout/Container'
 import { useProfile } from 'state/hooks'
@@ -40,7 +40,7 @@ const Wrapper = styled(Container)`
 
 const IfoSteps: React.FC<Props> = ({ currency }) => {
   const { hasProfile } = useProfile()
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const balance = useTokenBalance(getAddress(currency.address))
   const stepsValidationStatus = [hasProfile, balance.isGreaterThan(0), false, false]
 
@@ -66,11 +66,11 @@ const IfoSteps: React.FC<Props> = ({ currency }) => {
             </Text>
             {isStepValid ? (
               <Text color="success" bold>
-                {TranslateString(999, 'Profile Active!')}
+                {t('Profile Active!')}
               </Text>
             ) : (
               <Button as={Link} href="/profile">
-                {TranslateString(999, 'Activate you profile')}
+                {t('Activate you profile')}
               </Button>
             )}
           </CardBody>
@@ -92,7 +92,7 @@ const IfoSteps: React.FC<Props> = ({ currency }) => {
               endIcon={<OpenNewIcon color="white" />}
               mt="16px"
             >
-              {TranslateString(999, 'Get LP tokens')}
+              {t('Get LP tokens')}
             </Button>
           </CardBody>
         )
@@ -128,7 +128,7 @@ const IfoSteps: React.FC<Props> = ({ currency }) => {
   return (
     <Wrapper>
       <Heading as="h2" size="xl" color="secondary" mb="24px" textAlign="center">
-        {TranslateString(999, 'How to Take Part')}
+        {t('How to Take Part')}
       </Heading>
       <Stepper>
         {stepsValidationStatus.map((_, index) => (

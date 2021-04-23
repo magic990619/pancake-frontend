@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react'
 import { Button, Modal } from '@pancakeswap-libs/uikit'
 import ModalActions from 'components/ModalActions'
 import Balance from 'components/Balance'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 
 interface DepositModalProps {
@@ -23,22 +23,19 @@ const CompoundModal: React.FC<DepositModalProps> = ({
   stakingTokenDecimals = 18,
 }) => {
   const [pendingTx, setPendingTx] = useState(false)
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const fullBalance = useMemo(() => {
     return getFullDisplayBalance(earnings, stakingTokenDecimals)
   }, [earnings, stakingTokenDecimals])
 
   return (
-    <Modal
-      title={`${TranslateString(704, 'Compound')} ${TranslateString(330, `${tokenName} Earned`)}`}
-      onDismiss={onDismiss}
-    >
+    <Modal title={`${t('Compound')} ${t('%asset% Earned', { asset: tokenName })}`} onDismiss={onDismiss}>
       <BalanceRow>
         <Balance value={Number(fullBalance)} />
       </BalanceRow>
       <ModalActions>
         <Button width="100%" variant="secondary" onClick={onDismiss}>
-          {TranslateString(462, 'Cancel')}
+          {t('Cancel')}
         </Button>
         <Button
           id="compound-cake"
@@ -51,7 +48,7 @@ const CompoundModal: React.FC<DepositModalProps> = ({
             onDismiss()
           }}
         >
-          {pendingTx ? TranslateString(488, 'Pending Confirmation') : TranslateString(464, 'Confirm')}
+          {pendingTx ? t('Pending Confirmation') : t('Confirm')}
         </Button>
       </ModalActions>
     </Modal>

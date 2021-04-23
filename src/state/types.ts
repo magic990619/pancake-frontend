@@ -5,8 +5,7 @@ import { CampaignType, FarmConfig, Nft, PoolConfig, Team } from 'config/constant
 export type TranslatableText =
   | string
   | {
-      id: number
-      fallback: string
+      key: string
       data?: {
         [key: string]: string | number
       }

@@ -7,7 +7,7 @@ import UnlockButton from 'components/UnlockButton'
 import Label from 'components/Label'
 import { useERC20 } from 'hooks/useContract'
 import { useSousApprove } from 'hooks/useApprove'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import { useSousStake } from 'hooks/useStake'
 import { useSousUnstake } from 'hooks/useUnstake'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -49,7 +49,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
 
   // Pools using native BNB behave differently than pools using a token
   const isBnbPool = poolCategory === PoolCategory.BINANCE
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const stakingTokenContract = useERC20(stakingToken.address ? getAddress(stakingToken.address) : '')
   const { account } = useWeb3React()
   const { onApprove } = useSousApprove(stakingTokenContract, sousId)
@@ -121,7 +121,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
       {isFinished && sousId !== 0 && <PoolFinishedSash />}
       <div style={{ padding: '24px' }}>
         <CardTitle isFinished={isFinished && sousId !== 0}>
-          {isOldSyrup && '[OLD]'} {earningToken.symbol} {TranslateString(348, 'Pool')}
+          {isOldSyrup && '[OLD]'} {earningToken.symbol} {t('Pool')}
         </CardTitle>
         <div style={{ marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
           <div style={{ flex: 1 }}>
@@ -130,7 +130,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           {account && harvest && !isOldSyrup && (
             <HarvestButton
               disabled={!earnings.toNumber() || pendingTx}
-              text={pendingTx ? TranslateString(999, 'Collecting') : TranslateString(562, 'Harvest')}
+              text={pendingTx ? t('Collecting') : t('Harvest')}
               onClick={async () => {
                 setPendingTx(true)
                 await onReward()
@@ -145,7 +145,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             {sousId === 0 && account && harvest && (
               <HarvestButton
                 disabled={!earnings.toNumber() || pendingTx}
-                text={TranslateString(704, 'Compound')}
+                text={t('Compound')}
                 onClick={onPresentCompound}
               />
             )}
@@ -153,7 +153,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
         ) : (
           <OldSyrupTitle hasBalance={accountHasStakedBalance} />
         )}
-        <Label isFinished={isFinished && sousId !== 0} text={TranslateString(330, `${earningToken.symbol} earned`)} />
+        <Label isFinished={isFinished && sousId !== 0} text={t('%asset% earned', { tokenName: earningToken.symbol })} />
         <StyledCardActions>
           {!account && <UnlockButton />}
           {account &&
@@ -189,7 +189,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
             ))}
         </StyledCardActions>
         <StyledDetails>
-          <div>{TranslateString(736, 'APR')}:</div>
+          <div>{t('APR')}:</div>
           {isFinished || isOldSyrup || !apr ? (
             '-'
           ) : (
@@ -197,7 +197,7 @@ const PoolCard: React.FC<HarvestProps> = ({ pool }) => {
           )}
         </StyledDetails>
         <StyledDetails>
-          <div>{TranslateString(384, 'Your Stake')}:</div>
+          <div>{t('Your Stake')}:</div>
           <Balance
             fontSize="14px"
             isDisabled={isFinished}

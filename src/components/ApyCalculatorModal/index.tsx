@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Modal, Text, LinkExternal, Flex } from '@pancakeswap-libs/uikit'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import { tokenEarnedPerThousandDollarsCompounding, getRoi } from 'utils/compoundApyHelpers'
 
 interface ApyCalculatorModalProps {
@@ -37,7 +37,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
   linkHref,
   earningTokenSymbol = 'CAKE',
 }) => {
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const oneThousandDollarsWorthOfToken = 1000 / tokenPrice
 
   const tokenEarnedPerThousand1D = tokenEarnedPerThousandDollarsCompounding({
@@ -66,17 +66,17 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
       <Grid>
         <GridItem>
           <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase" mb="20px">
-            {TranslateString(860, 'Timeframe')}
+            {t('Timeframe')}
           </Text>
         </GridItem>
         <GridItem>
           <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase" mb="20px">
-            {TranslateString(858, 'ROI')}
+            {t('ROI')}
           </Text>
         </GridItem>
         <GridItem>
           <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase" mb="20px">
-            {earningTokenSymbol} {TranslateString(999, 'per')} $1000
+            {earningTokenSymbol} {t('per')} $1000
           </Text>
         </GridItem>
         {/* 1 day row */}
@@ -129,8 +129,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
         </GridItem>
       </Grid>
       <Description fontSize="12px" color="textSubtle">
-        {TranslateString(
-          866,
+        {t(
           'Calculated based on current rates. Compounding once daily. Rates are estimates provided for your convenience only, and by no means represent guaranteed returns.',
         )}
       </Description>

@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Heading, Flex, Button, Text, HelpIcon, Link } from '@pancakeswap-libs/uikit'
 import orderBy from 'lodash/orderBy'
 import partition from 'lodash/partition'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 import usePersistState from 'hooks/usePersistState'
 import { usePools, useBlock } from 'state/hooks'
 import PageHeader from 'components/PageHeader'
@@ -31,7 +31,7 @@ const StyledLink = styled(Link)`
 
 const Syrup: React.FC = () => {
   const { path } = useRouteMatch()
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const { account } = useWeb3React()
   const pools = usePools(account)
   const { currentBlock } = useBlock()
@@ -56,20 +56,20 @@ const Syrup: React.FC = () => {
         <Flex justifyContent="space-between">
           <Flex flexDirection="column" mr={['8px', 0]}>
             <Heading as="h1" size="xxl" color="secondary" mb="24px">
-              {TranslateString(999, 'Syrup Pools')}
+              {t('Syrup Pools')}
             </Heading>
             <Heading size="md" color="text">
-              {TranslateString(999, 'Simply stake tokens to earn.')}
+              {t('Simply stake tokens to earn.')}
             </Heading>
             <Heading size="md" color="text">
-              {TranslateString(999, 'High APR, low risk.')}
+              {t('High APR, low risk.')}
             </Heading>
           </Flex>
           <Flex>
             <StyledLink color="backgroundAlt" href="https://docs.pancakeswap.finance/syrup-pools/syrup-pool" external>
               <Button px={['14px', null, null, null, '24px']} variant="subtle">
                 <ButtonText color="backgroundAlt" fontSize="16px" bold>
-                  {TranslateString(999, 'Help')}
+                  {t('Help')}
                 </ButtonText>
                 <HelpIcon color="backgroundAlt" ml={[null, null, null, 0, '6px']} />
               </Button>

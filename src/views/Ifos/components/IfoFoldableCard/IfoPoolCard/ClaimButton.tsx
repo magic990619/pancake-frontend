@@ -4,7 +4,7 @@ import { AutoRenewIcon, Button } from '@pancakeswap-libs/uikit'
 import { PoolIds } from 'config/constants/types'
 import { WalletIfoData } from 'hooks/ifo/types'
 import { useToast } from 'state/hooks'
-import useI18n from 'hooks/useI18n'
+import { useTranslation } from 'contexts/Localization'
 
 interface Props {
   poolId: PoolIds
@@ -13,7 +13,7 @@ interface Props {
 
 const ClaimButton: React.FC<Props> = ({ poolId, walletIfoData }) => {
   const userPoolCharacteristics = walletIfoData[poolId]
-  const TranslateString = useI18n()
+  const { t } = useTranslation()
   const { account } = useWeb3React()
   const { toastError, toastSuccess } = useToast()
 
@@ -41,7 +41,7 @@ const ClaimButton: React.FC<Props> = ({ poolId, walletIfoData }) => {
       isLoading={userPoolCharacteristics.isPendingTx}
       endIcon={userPoolCharacteristics.isPendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
     >
-      {TranslateString(999, 'Claim')}
+      {t('Claim')}
     </Button>
   )
 }
